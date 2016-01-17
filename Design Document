@@ -1,0 +1,57 @@
+						             				BlogEngine
+						             				==========
+
+@author: Weihao Qu
+@time:	 03/21/2015
+
+--------- Introduction ----------
+
+1.provide an Interface Blogger. BlogEngine class implements Interface Blogger to realize some blog features.
+2.call submit() to submit a post.
+3.call retriveOnePost() to retrieve one post; usr_id and blog_title is needed to find certain post.
+4.call addComment() to add comment to a certain post; 
+5.call addLabel() to add one label to a post after submit the post.
+6.call retrieveUser() to return all the posts of given user.
+7.call retrieveLabel() to return all the posts with given label.
+8.call retrieveComments() to return all comments associated with a given post.
+9.call deletePost() to delete the certain post and update label-post information.
+10.call deleteComment(), delete a comment of a post.
+11.call deleteLabel() to delete a label of a post.
+
+
+--------- Design -----------
+1.Assume when we submit a post, user's id,this bolg's title, content, label of this post will be known. Passing these information
+as string to submit() will record a certain post.
+2.Assume users can only choose labels, they can not create label by themselves.
+3.A user's id will correspond to an account, which contains lots of posts of this user account.
+	It is realized by hashMap<User_id,Account>.
+	Each account object has a hashMap<Title,Post>, use post title to search post.
+4.Each post will contain lots of labels which is decided when submit, and can also add label even after we submit the post.
+	Each post object will have an ArrayList<String> to record labels.
+5.Each post will have lots of comments.
+	Each post object contain an ArrayList<String> to store comments.
+6.Store the posts based on labels using hashMap<label, ArrayList<Post>> will make it easy to retrieve posts for a label.
+	We need to update the hashMap when a post is submit,a label is added or delete a post.
+
+	
+---------Data Structure---------
+BlogEngine:
+		HashMap<String user_id, Account>
+		HashMap<String Label, ArrayList<Post>>
+Account:
+		HashMap<String title, Post>
+		String user_id
+Post:
+		ArrayList<String> comments
+		ArrayList<String> label
+		String title
+		String content
+		String user_id
+		
+-------- test---------
+A simple test file is write to test submit, retrieveOnePost, retriveUser, retrieveLabel, retriveComment.
+ deletePost is also tested. submit 3 posts, 2 user, with 3 labels.
+
+
+
+
